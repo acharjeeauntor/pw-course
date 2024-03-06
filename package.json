@@ -1,0 +1,16 @@
+{
+  "name": "playwright-project",
+  "version": "1.0.0",
+  "description": "This is my project",
+  "main": "index.js",
+  "scripts": {
+    "safariTest":"npx playwright test --project=albert",
+    "chromeTest":"npx playwright test --project=chromium"
+  },
+  "author": "Auntor",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.24"
+  }
+}
