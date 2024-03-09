@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "safariTest":"npx playwright test --project=albert",
-    "chromeTest":"npx playwright test --project=chromium"
+    "chromeTest":"npx playwright test --project=custom example.spec.js"
   },
   "author": "Auntor",
   "license": "ISC",

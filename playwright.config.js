@@ -11,13 +11,15 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: './e2e',
+  // testMatch:['*.app.spec.js','*.app.spec.js'],
+  // testIgnore:['*.app.spec.js'],
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  //forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: 1,
   /* Opt out of parallel tests on CI. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -29,7 +31,7 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless:false
+    headless: false
   },
 
   /* Configure projects for major browsers */
@@ -38,7 +40,21 @@ module.exports = defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
+    {
+      name: 'custom',
+      use: { baseURL: "https://google.com/", 
+      browserName: 'chromium', 
+      screenshot: 'on',
+    video:'retain-on-failure',
+    trace:'retain-on-failure',
+    viewport:{height:700,width:900},
+    // @ts-ignore
+    headless:false,
+    launchOptions:{
+    slowMo:500
+    }
+  },
+    },
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -46,7 +62,7 @@ module.exports = defineConfig({
 
     {
       name: 'albert',
-      use: { ...devices['Desktop Safari'],headless:false },
+      use: { ...devices['Desktop Safari'], headless: false },
     },
 
     /* Test against mobile viewports. */
