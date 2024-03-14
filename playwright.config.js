@@ -1,15 +1,16 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+/* Type of Timeout:
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
+Test Timeout
+Expect Timeout
+Action Timeout - use
+Global Timeout
+Navigation Timeout - use
+
+
+*/
 module.exports = defineConfig({
   testDir: './e2e',
   // testMatch:['*.app.spec.js','*.app.spec.js'],
@@ -19,7 +20,14 @@ module.exports = defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   //forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 1,
+ // retries: 1,
+  timeout:40000,
+expect:{timeout:10000},
+globalTimeout:600000,
+
+
+
+
   /* Opt out of parallel tests on CI. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -31,7 +39,10 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: false
+    headless: false,
+    ignoreHTTPSErrors:true,
+    actionTimeout:5000,
+    navigationTimeout:5000,
   },
 
   /* Configure projects for major browsers */
@@ -62,7 +73,7 @@ module.exports = defineConfig({
 
     {
       name: 'albert',
-      use: { ...devices['Desktop Safari'], headless: false },
+      use: { ...devices['Desktop Safari'], headless: false,ignoreHTTPSErrors:true },
     },
 
     /* Test against mobile viewports. */
