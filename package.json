@@ -4,8 +4,10 @@
   "description": "This is my project",
   "main": "index.js",
   "scripts": {
-    "safariTest":"npx playwright test --project=albert",
-    "chromeTest":"npx playwright test --project=custom example.spec.js"
+    "safariTest":"npx playwright test --project=chromium --project=firefox",
+    "chromeTest":"npx playwright test --project=custom example.spec.js",
+    "bwConTest":"npx playwright test --project=BWContext browserContext.spec.js",
+    "pageMethod":"npx playwright test --project=BWContext pageMethod.spec.js"
   },
   "author": "Auntor",
   "license": "ISC",

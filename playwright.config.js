@@ -12,11 +12,11 @@ Navigation Timeout - use
 
 */
 module.exports = defineConfig({
-  testDir: './e2e',
+  testDir: './e2e/tests',
   // testMatch:['*.app.spec.js','*.app.spec.js'],
   // testIgnore:['*.app.spec.js'],
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   //forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -29,7 +29,7 @@ globalTimeout:600000,
 
 
   /* Opt out of parallel tests on CI. */
-  workers: 1,
+  workers: 5,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -48,10 +48,6 @@ globalTimeout:600000,
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
       name: 'custom',
       use: { baseURL: "https://google.com/", 
       browserName: 'chromium', 
@@ -67,24 +63,41 @@ globalTimeout:600000,
   },
     },
     {
+      name:"BWContext",
+      use:{
+        ...devices['Desktop Chrome'],
+        baseURL: "https://google.com/"
+      }
+    },
+    {
+      name:"BWContext2",
+      use:{
+        baseURL: "https://google.com/"
+      }
+    },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'],baseURL: "https://google.com/" },fullyParallel:true
+    },
+    {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'],baseURL: "https://google.com/" },
     },
 
     {
-      name: 'albert',
-      use: { ...devices['Desktop Safari'], headless: false,ignoreHTTPSErrors:true },
+      name: 'safari',
+      use: { ...devices['Desktop Safari'], headless: false,ignoreHTTPSErrors:true,baseURL: "https://google.com/" },
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 2 XL'],baseURL: "https://google.com/" },
+    },
+    {
+      name: 'Mobile Safari',
+      use:{ ...devices['iPhone X'],baseURL: "https://google.com/"}
+    },
 
     /* Test against branded browsers. */
     // {
