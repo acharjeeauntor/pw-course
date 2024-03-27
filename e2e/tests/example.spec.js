@@ -32,8 +32,6 @@ test.describe('Login Module',async()=>{
 
 
 
-
-
 test.describe.skip('Login Module',async()=>{
   test('has title2', async ({ page,baseURL }) => {
     await page.goto(`${baseURL}`,{timeout:5000});
